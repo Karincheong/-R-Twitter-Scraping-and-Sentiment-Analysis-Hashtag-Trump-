@@ -2,20 +2,26 @@
 
 ![image](https://user-images.githubusercontent.com/68969621/98043018-770a1880-1e1c-11eb-9c9c-be694b6169b8.png)
 
-##working directory 
+First is to develop a Twitter developer account, once this is achieved, then the security credential codes will then provide by the platform and is ready for the actual scraping process.
+![image](https://user-images.githubusercontent.com/68969621/98043195-bf293b00-1e1c-11eb-9741-9f27c3c242ce.png)
+
+
+##Set working directory 
 getwd()
 setwd("C:/Users/karin/OneDrive/Desktop/web and data mining/CA2")
 
-##package 
+##Twitter Web scraping package  
+![image](https://user-images.githubusercontent.com/68969621/98043259-ce0fed80-1e1c-11eb-9fc3-3d07c1e820e9.png)
 library (rtweet)
 library(openxlsx)
 library(xlsx)
-
 library(twitteR)
 library(ROAuth)
 library (rtweet)
 
-##twitter token
+
+##Set up Twitter token and authorisation 
+First off, we had to request Twitter for an authorizing token “create_token” is the function used in this scenario. Twitter then generated an OAuth 1.0 token. Initially, there are two types of tokens OAuth 1.0 and 2.0. The 2.0 token cannot be used to send information and that’s the only difference. We then got hold of the following information from twitter:
 twitter_token <- create_token(
 app = "Trump get_tweets script",
 consumer_key = "Key",
@@ -24,8 +30,9 @@ access_token = 'Key',
 access_secret = 'Key',
 set_renv = FALSE)
 
-# Search @Trump
+# Search @Trump, sample size = 1000 
 Trump<- search_tweets("Trump", n=1000, include_rts=FALSE, retryonratelimit=TRUE, lang="en")
+![image](https://user-images.githubusercontent.com/68969621/98043435-1d561e00-1e1d-11eb-89c3-8f071ac936c8.png)
 
 
 #into working df
