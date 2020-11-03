@@ -1,6 +1,6 @@
 # Twitter-Scraping-and-Sentiment-Analysis-Hashtag-Trump-
 
-![image](https://user-images.githubusercontent.com/68969621/98043018-770a1880-1e1c-11eb-9c9c-be694b6169b8.png)
+![image](https://user-images.githubusercontent.com/68969621/98050972-c6efdc00-1e2a-11eb-8f0c-d2ff3dcb77db.png)
 
 First is to develop a Twitter developer account, once this is achieved, then the security credential codes will then provide by the platform and is ready for the actual scraping process.
 
