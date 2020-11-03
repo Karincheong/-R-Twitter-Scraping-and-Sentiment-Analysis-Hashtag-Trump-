@@ -1,6 +1,6 @@
 # Twitter-Scraping-and-Sentiment-Analysis-Hashtag-Trump-
 
-
+![image](https://user-images.githubusercontent.com/68969621/98043018-770a1880-1e1c-11eb-9c9c-be694b6169b8.png)
 
 ##working directory 
 getwd()
