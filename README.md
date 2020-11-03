@@ -420,7 +420,7 @@ ggplot(data=sentimentscores,aes(x=sentiment,y=Score))+
 
 ![image](https://user-images.githubusercontent.com/68969621/98048744-44651d80-1e26-11eb-92be-ba7877dd49e2.png)
 
-# Output 
+# Final comment 
 
 Generally falling onto the negative side as words of negative, fear, anger, and sadness are presented and there are less than 200 scores which is joyful.  Based on the statistic, majority of these outputs are coming from US citizen and there are clear disappointed voices are lying under these numbers.
 However, the indictors in blue (positive) and pink (trust) are in locating on the opposite location, where seemed to be Donald Trump’s supporters.
