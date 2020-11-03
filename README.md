@@ -351,115 +351,9 @@ wordcloud(Trump$source, min.freq=4, scale=c(5, .5), random.order=FALSE, rot.per=
 ![image](https://user-images.githubusercontent.com/68969621/98047584-141c7f80-1e24-11eb-8f48-6f8ad27f245d.png)
 
 
+# Words that frequent used within tweets 
 
-#######################################################################
-#         list of tweets with the most amount of favourites          #
-######################################################################
-
-View(Trump$favorite_count >45,"TRUE")
-
-sort(Trump$favorite_count)
-
-View(Trump$favorite_count >200, TRUE)
-
-sum(Trump$favorite_count >200, TRUE)
-
-
-#===========
-Trump %>%
-count(favorite_count, sort.default(TRUE)) %>%
-  mutate(favorite_count = reorder(favorite_count, n)) %>%
-  na.omit() %>%
-  top_n(10) %>%
-  ggplot(aes(x = favorite_count, y = n)) +
-  geom_col() +
-  coord_flip() +
-  labs(x = "Count",
-       y = "Tweet",
-       title = "Twitter favorite count ")
-
-unique(Trump$favorite_count)
-summary(Trump$favorite_count)
-boxplot(Trump$favorite_count)
-qqplot(Trump$retweet_count, Trump$favorite_count)
-qqline(Trump$retweet_count, Trump$favorite_count)
-#==================================
-wilcox.test(Trump$retweet_count, Trump$favorite_count)
-
-############Wilcoxon rank sum test with continuity correction
-
-###   data:  Trump$retweet_count and Trump$favorite_count
-###   W = 140205946, p-value < 2.2e-16
-###   alternative hypothesis: true location shift is not equal to 0
-# ==============================================
-#Option2   
-library(tm)
-# build a corpus, and specify the source to be character vectors
-myCorpus <- Corpus(VectorSource(Trump$text))
-# convert to lower case
-myCorpus <- tm_map(myCorpus, content_transformer(tolower))
-# remove URLs
-removeURL <- function(x) gsub("http[^[:space:]]*", "", x)
-myCorpus <- tm_map(myCorpus, content_transformer(removeURL))
-# remove anything other than English letters or space
-removeNumPunct <- function(x) gsub("[^[:alpha:][:space:]]*", "", x)
-myCorpus <- tm_map(myCorpus, content_transformer(removeNumPunct))
-# remove stopwords
-myStopwords <- c(setdiff(stopwords('english'), c("r", "big")),
-                 "use", "see", "used", "via", "amp")
-myCorpus <- tm_map(myCorpus, removeWords, myStopwords)
-# remove extra whitespace
-myCorpus <- tm_map(myCorpus, stripWhitespace)
-# keep a copy for stem completion later
-myCorpusCopy <- myCorpus
-
-myCorpus <- tm_map(myCorpus, stemDocument) # stem words
-
-wordcloud(myCorpus, min.freq=4, scale=c(5, .5), random.order=FALSE, rot.per=0.3, 
-          colors=brewer.pal(8, "Dark2"))
-
-#====================================================
-
-
-#Look at tweet 8534 
-Trump[8534, c("created_at", "text", "source", "display_text_width",
-              "is_retweet")]
-
-#sentiment analysis on myCorpus example from tweet #7123 
-get_nrc_sentiment("you got me Way to not answer any questions and instead
-                  attack the individual Sounds exactly like Trump Congrats")
-#1 Anger 1 negative 
-myCorpus<-as.character(myCorpus)
-trump_sentiment<-get_nrc_sentiment(myCorpus)
-sentimentscores<-data.frame(colSums(trump_sentiment[,]))
-names(sentimentscores) <- "Score"
-sentimentscores <- cbind("sentiment"=rownames(sentimentscores),sentimentscores)
-rownames(sentimentscores) <- NULL
-
-library(ggplot2)
-ggplot(data=sentimentscores,aes(x=sentiment,y=Score))+
-  geom_bar(aes(fill=sentiment),stat = "identity")+
-  theme(legend.position="none")+
-  xlab("Sentiments")+ylab("Scores")+
-  ggtitle("Total sentiment based on scores")+
-  theme_minimal()
-
-summary(sentimentscores$Score)
-summary(trump_sentiment)
-#=====================================================
-
-library(tidytext)
-library(stringr)
-library(dplyr)
-library(janeaustenr)
-
-#nrc emotion lexicon
-get_sentiments("nrc")
-#nrc emotion #negative or positive 
-get_sentiments("bing")
-#with score 
-get_sentiments("afinn")
-
+#Remove any stop words 
 
 tweets <- Trump %>%
   select(text) %>%
@@ -475,7 +369,7 @@ tweets <- tweets %>%
   filter(!word =="it's" ) %>%
   filter(!word =="i'm " )
 
-# bar chart of the most frequent words found in the tweets
+# Bar chart of the most frequent words found in the tweets
 tweets %>% 
   count(word, sort = TRUE) %>%
   top_n(20) %>%
@@ -488,11 +382,47 @@ tweets %>%
        x = "Unique words",
        title = "Most frequent words found in the tweets",
        subtitle = "Stop words removed from the list")
+       
+![image](https://user-images.githubusercontent.com/68969621/98048584-e33d4a00-1e25-11eb-84ef-ac6859dd6960.png)
+       
+# Word cloud for most appeared words 
 
-#word cloud for most appeared words 
 tweets <- as.character(tweets)
 tweets <- gsub("c\\(", " ", tweets)
 set.seed(1234)
 wordcloud(tweets, min.freq=4, scale=c(5, .1), random.order=FALSE, rot.per=.1, 
-          colors=brewer.pal(9, "Set2"))
+          colors=brewer.pal(9, "Set2"))      
+
+![image](https://user-images.githubusercontent.com/68969621/98048650-0e279e00-1e26-11eb-9d34-815409ff67d6.png)
+
+
+# Sentiment Analysis with Trump 
+
+#library(tidytext)
+#library(stringr)
+#library(dplyr)
+#library(janeaustenr)
+
+#nrc emotion lexicon
+get_sentiments("nrc")
+#nrc emotion #negative or positive 
+get_sentiments("bing")
+#with score 
+get_sentiments("afinn")
+
+library(ggplot2)
+ggplot(data=sentimentscores,aes(x=sentiment,y=Score))+
+  geom_bar(aes(fill=sentiment),stat = "identity")+
+  theme(legend.position="none")+
+  xlab("Sentiments")+ylab("Scores")+
+  ggtitle("Total sentiment based on scores")+
+  theme_minimal()
+
+![image](https://user-images.githubusercontent.com/68969621/98048744-44651d80-1e26-11eb-92be-ba7877dd49e2.png)
+
+# Output 
+
+Generally falling onto the negative side as words of negative, fear, anger, and sadness are presented and there are less than 200 scores which is joyful.  Based on the statistic, majority of these outputs are coming from US citizen and there are clear disappointed voices are lying under these numbers.
+However, the indictors in blue (positive) and pink (trust) are in locating on the opposite location, where seemed to be Donald Trump’s supporters.
+
 
