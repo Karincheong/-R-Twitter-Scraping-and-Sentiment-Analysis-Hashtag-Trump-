@@ -15,12 +15,12 @@ setwd("C:/Users/karin/OneDrive/Desktop/web and data mining/CA2")
 
 ![image](https://user-images.githubusercontent.com/68969621/98043259-ce0fed80-1e1c-11eb-9fc3-3d07c1e820e9.png)
 
-library (rtweet)
-library(openxlsx)
-library(xlsx)
-library(twitteR)
-library(ROAuth)
-library (rtweet)
+#library (rtweet)
+#library(openxlsx)
+#library(xlsx)
+#library(twitteR)
+#library(ROAuth)
+#library (rtweet)
 
 
 ##Set up Twitter token and authorisation 
