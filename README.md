@@ -7,9 +7,10 @@ First is to develop a Twitter developer account, once this is achieved, then the
 ![image](https://user-images.githubusercontent.com/68969621/98043195-bf293b00-1e1c-11eb-9741-9f27c3c242ce.png)
 
 
-##Set working directory 
+# Set working directory 
+
 getwd()
-setwd("C:/Users/karin/OneDrive/Desktop/web and data mining/CA2")
+
 
 ##Twitter Web scraping package  
 
@@ -22,9 +23,9 @@ setwd("C:/Users/karin/OneDrive/Desktop/web and data mining/CA2")
 #library(ROAuth)
 #library (rtweet)
 
+# Set up Twitter token and authorisation 
 
-##Set up Twitter token and authorisation 
-First off, we had to request Twitter for an authorizing token “create_token” is the function used in this scenario. Twitter then generated an OAuth 1.0 token. Initially, there are two types of tokens OAuth 1.0 and 2.0. The 2.0 token cannot be used to send information and that’s the only difference. We then got hold of the following information from twitter:
+
 twitter_token <- create_token(
 app = "Trump get_tweets script",
 consumer_key = "Key",
