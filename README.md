@@ -162,27 +162,45 @@ Trump$source  <-  gsub("[[:punct:]]", "", Trump$source)
 •	Use the Function (tm), first is to create a corpus by inputting the Text column into the character vectors.  
 
 #Option2   
+
 library(tm)
-# build a corpus, and specify the source to be character vectors
+
+#build a corpus, and specify the source to be character vectors
+
 myCorpus <- Corpus(VectorSource(Trump$text))
-# convert to lower case
+
+#convert to lower case
+
 myCorpus <- tm_map(myCorpus, content_transformer(tolower))
-# remove URLs
+
+#remove URLs
+
 removeURL <- function(x) gsub("http[^[:space:]]*", "", x)
+
 myCorpus <- tm_map(myCorpus, content_transformer(removeURL))
-# remove anything other than English letters or space
+
+#remove anything other than English letters or space
+
 removeNumPunct <- function(x) gsub("[^[:alpha:][:space:]]*", "", x)
+
 myCorpus <- tm_map(myCorpus, content_transformer(removeNumPunct))
-# remove stopwords
+
+#remove stopwords
+
 myStopwords <- c(setdiff(stopwords('english'), c("r", "big")),
                  "use", "see", "used", "via", "amp")
 myCorpus <- tm_map(myCorpus, removeWords, myStopwords)
-# remove extra whitespace
+
+#remove extra whitespace
+
 myCorpus <- tm_map(myCorpus, stripWhitespace)
+
 # keep a copy for stem completion later
+
 myCorpusCopy <- myCorpus
 
 myCorpus <- tm_map(myCorpus, stemDocument) # stem words
+
 
 ![image](https://user-images.githubusercontent.com/68969621/98045873-116c5b00-1e21-11eb-8bbc-f41c050c75b7.png)
 
@@ -196,9 +214,20 @@ The actual dataset has cleaned in two methods, there are slightly differences on
 
 # Method 1- gusb 
 
+#with Corpus
+writeLines(strwrap(myCorpus[[8534]]$content, 60))
+
+
+#without 2nd way of working 
+
+writeLines(strwrap(Trump$text[8534], 60))
+
 ![image](https://user-images.githubusercontent.com/68969621/98046021-56908d00-1e21-11eb-9e8d-a7526d62eba9.png)
 
+
 # Method 2- Corpus
+
+writeLines(strwrap(Trump$text[8534], 60))
 
 ![image](https://user-images.githubusercontent.com/68969621/98046058-65773f80-1e21-11eb-90e3-0a9cef10c0f6.png)
 
@@ -218,14 +247,19 @@ Trump_C <- Trump_C %>% arrange(-retweet_count)
 Trump_C[1,5]  
 
 # Keeping only the retweets
+
 Trump_retweets <- Trump[Trump$is_retweet==TRUE,]
+
 # Keeping only the replies
+
 Trump_replies <- subset(Trump, !is.na(Trump$reply_to_status_id))
+
 
 ![image](https://user-images.githubusercontent.com/68969621/98044693-2e079380-1e1f-11eb-9b43-a7f20d60dc72.png)
 
 
 # Creating a data frame
+
 data <- data.frame(
   category=c( "Retweets", "Replies"),
   count=c( 192, 120)
@@ -240,18 +274,16 @@ data <- data.frame(
 
 
 # How many unique locations?
+
 unique(Trump$quoted_location)
 
-#[1] 406 unique share locations
+![image](https://user-images.githubusercontent.com/68969621/98046820-c3f0ed80-1e22-11eb-9738-d22d50b13d20.png)
+
+
+406 unique share locations
+
 length(unique(Trump$quoted_location))
 
-# location word cloud to identify the different
-# locations as they are inputted by users as strings
-Trump$quoted_location <- as.character(Trump$quoted_location)
-
-set.seed(1234)
-wordcloud(Trump$quoted_location, min.freq=4, scale=c(5, .5), random.order=FALSE, rot.per=0.3, 
-          colors=brewer.pal(8, "Dark2"))
 
 ## graph has added the function to show n number of locations, in this case 20
 Trump %>%
@@ -264,25 +296,36 @@ Trump %>%
   labs(x = "Location",
        y = "Count",
        title = "Top 20 locations of Twitter users")
+       
 
-#==========================================================
-# Type of device 
-############Looking into device info 
-# different devices (source) 
-unique(Trump$source)
+![image](https://user-images.githubusercontent.com/68969621/98046971-1205f100-1e23-11eb-99db-150ee0d875ee.png)
 
-#[1] 130 unique device types 
-length(unique(Trump$source))
 
+       
 # location word cloud to identify the different
-# locations as they are inputted by users as strings
-Trump$source <- as.character(Trump$source)
+
+Trump$quoted_location <- as.character(Trump$quoted_location)
 
 set.seed(1234)
-wordcloud(Trump$source, min.freq=4, scale=c(5, .5), random.order=FALSE, rot.per=0.3, 
+wordcloud(Trump$quoted_location, min.freq=4, scale=c(5, .5), random.order=FALSE, rot.per=0.3, 
           colors=brewer.pal(8, "Dark2"))
 
-#graph has added the function to show n number of locations, in this case 20
+![image](https://user-images.githubusercontent.com/68969621/98047031-2813b180-1e23-11eb-9e8d-8ce717f8428d.png)
+
+          
+#==========================================================
+
+# different devices (source) 
+
+unique(Trump$source)
+
+![image](https://user-images.githubusercontent.com/68969621/98047074-3792fa80-1e23-11eb-9d16-19a1c4996178.png)
+
+#130 unique device types 
+length(unique(Trump$source))
+
+# Graph has added the function to show n number of locations, in this case 20
+
 Trump %>%
   count(source, sort = TRUE) %>%
   mutate(source = reorder(source, n)) %>%
@@ -293,6 +336,19 @@ Trump %>%
   labs(x = "Source",
        y = "Count",
        title = "Top 20 type of sources")
+
+![image](https://user-images.githubusercontent.com/68969621/98047325-a07a7280-1e23-11eb-9a35-0a80869001a0.png)
+
+
+# location word cloud to identify the different
+
+Trump$source <- as.character(Trump$source)
+
+set.seed(1234)
+wordcloud(Trump$source, min.freq=4, scale=c(5, .5), random.order=FALSE, rot.per=0.3, 
+          colors=brewer.pal(8, "Dark2"))
+
+![image](https://user-images.githubusercontent.com/68969621/98047352-a96b4400-1e23-11eb-986e-b615261f977c.png)
 
 
 #######################################################################
@@ -362,14 +418,7 @@ wordcloud(myCorpus, min.freq=4, scale=c(5, .5), random.order=FALSE, rot.per=0.3,
           colors=brewer.pal(8, "Dark2"))
 
 #====================================================
-#with Corpus
-writeLines(strwrap(myCorpus[[8534]]$content, 60))
-writeLines(strwrap(myCorpus[[7123]]$content, 60))
 
-#without 2nd way of working 
-
-writeLines(strwrap(Trump$text[8534], 60))
-writeLines(strwrap(Trump$text[7123], 60))
 
 #Look at tweet 8534 
 Trump[8534, c("created_at", "text", "source", "display_text_width",
