@@ -35,20 +35,31 @@ access_secret = 'Key',
 set_renv = FALSE)
 
 # Search @Trump, sample size = 1000 
+
 Trump<- search_tweets("Trump", n=1000, include_rts=FALSE, retryonratelimit=TRUE, lang="en")
+
 ![image](https://user-images.githubusercontent.com/68969621/98043435-1d561e00-1e1d-11eb-89c3-8f071ac936c8.png)
 
 
-#into working df
+# Into data frame
+
 Trump<-twListToDF(Trump)
 View(Trump)
 
+![image](https://user-images.githubusercontent.com/68969621/98044123-4e831e00-1e1e-11eb-99ed-b9ae11a21ffd.png)
+
+
 --------------------------------------------------
-#Write into xlsx file 
+# Write into xlsx file 
+
+Next is to export #Trump data frame data into a workable excel file. 
+
 export(Trump,"DonaldTrump_Tweets.xlsx")
 
 -----------------------------------------------------------
-#Read DonaldTrump_Tweets.xlsx
+# Read DonaldTrump_Tweets.xlsx
+
+Import #Trump data to working directory 
 
 library(readxl)
 Trump <- read_excel("DonaldTrump_Tweets.xlsx", 
