@@ -324,7 +324,7 @@ unique(Trump$source)
 #130 unique device types 
 length(unique(Trump$source))
 
-# Graph has added the function to show n number of locations, in this case 20
+# Top 20 soure of devices 
 
 Trump %>%
   count(source, sort = TRUE) %>%
@@ -337,7 +337,7 @@ Trump %>%
        y = "Count",
        title = "Top 20 type of sources")
 
-![image](https://user-images.githubusercontent.com/68969621/98047325-a07a7280-1e23-11eb-9a35-0a80869001a0.png)
+![image](https://user-images.githubusercontent.com/68969621/98049037-d53bf900-1e26-11eb-910e-12bec03e9897.png)
 
 
 # Location word cloud to identify the different
