@@ -3,6 +3,7 @@
 ![image](https://user-images.githubusercontent.com/68969621/98043018-770a1880-1e1c-11eb-9c9c-be694b6169b8.png)
 
 First is to develop a Twitter developer account, once this is achieved, then the security credential codes will then provide by the platform and is ready for the actual scraping process.
+
 ![image](https://user-images.githubusercontent.com/68969621/98043195-bf293b00-1e1c-11eb-9741-9f27c3c242ce.png)
 
 
@@ -11,7 +12,9 @@ getwd()
 setwd("C:/Users/karin/OneDrive/Desktop/web and data mining/CA2")
 
 ##Twitter Web scraping package  
+
 ![image](https://user-images.githubusercontent.com/68969621/98043259-ce0fed80-1e1c-11eb-9fc3-3d07c1e820e9.png)
+
 library (rtweet)
 library(openxlsx)
 library(xlsx)
