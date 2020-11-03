@@ -324,7 +324,7 @@ unique(Trump$source)
 #130 unique device types 
 length(unique(Trump$source))
 
-# Top 20 soure of devices 
+# Top 20 source of devices 
 
 Trump %>%
   count(source, sort = TRUE) %>%
@@ -340,7 +340,7 @@ Trump %>%
 ![image](https://user-images.githubusercontent.com/68969621/98049037-d53bf900-1e26-11eb-910e-12bec03e9897.png)
 
 
-# Location word cloud to identify the different
+# Word cloud for most frequently found device types 
 
 Trump$source <- as.character(Trump$source)
 
