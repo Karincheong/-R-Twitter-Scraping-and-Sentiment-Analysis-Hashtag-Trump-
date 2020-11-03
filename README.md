@@ -285,7 +285,7 @@ unique(Trump$quoted_location)
 length(unique(Trump$quoted_location))
 
 
-## graph has added the function to show n number of locations, in this case 20
+## Graph has added the function to show n number of locations, in this case 20
 Trump %>%
   count(quoted_location, sort = TRUE) %>%
   mutate(quoted_location = reorder(quoted_location, n)) %>%
@@ -302,7 +302,7 @@ Trump %>%
 
 
        
-# location word cloud to identify the different
+# Location word cloud to identify the different
 
 Trump$quoted_location <- as.character(Trump$quoted_location)
 
@@ -315,7 +315,7 @@ wordcloud(Trump$quoted_location, min.freq=4, scale=c(5, .5), random.order=FALSE,
           
 #==========================================================
 
-# different devices (source) 
+# Different devices (source) 
 
 unique(Trump$source)
 
@@ -340,7 +340,7 @@ Trump %>%
 ![image](https://user-images.githubusercontent.com/68969621/98047325-a07a7280-1e23-11eb-9a35-0a80869001a0.png)
 
 
-# location word cloud to identify the different
+# Location word cloud to identify the different
 
 Trump$source <- as.character(Trump$source)
 
@@ -348,7 +348,8 @@ set.seed(1234)
 wordcloud(Trump$source, min.freq=4, scale=c(5, .5), random.order=FALSE, rot.per=0.3, 
           colors=brewer.pal(8, "Dark2"))
 
-![image](https://user-images.githubusercontent.com/68969621/98047352-a96b4400-1e23-11eb-986e-b615261f977c.png)
+![image](https://user-images.githubusercontent.com/68969621/98047584-141c7f80-1e24-11eb-8f48-6f8ad27f245d.png)
+
 
 
 #######################################################################
