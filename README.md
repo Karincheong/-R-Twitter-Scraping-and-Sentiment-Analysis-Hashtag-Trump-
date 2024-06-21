@@ -1,4 +1,5 @@
 # Twitter-Scraping-and-Sentiment-Analysis-Hashtag-Trump-
+## Language: R 
 
 ![image](https://user-images.githubusercontent.com/68969621/98050972-c6efdc00-1e2a-11eb-8f0c-d2ff3dcb77db.png)
 
